@@ -2,49 +2,165 @@ grammar io.typefox.xtext.langserver.example.MyDsl with org.eclipse.xtext.common.
 
 generate myDsl "http://www.typefox.io/xtext/langserver/example/MyDsl"
 
-ProtocolDefinitions:
-	definitions+=Definitions*;
-
-Definitions:
-	TypeDefinition | ProtocolDefinition
-;	
-
-ProtocolDefinition :
-	'protocol' name=ID '{'
-		(methods+=Method)*
-	'}'	
+Model:
+	Operations
 ;
 
-Method :
-	Request | Notification
+Operations:
+	{Operations} (operations+=LineOperation)*
 ;
 
-Request :
-	'request' name=ID '(' (params+=Property (',' params+=Property)*)? ')' ':' returnType=Type
+
+LineOperation:
+//	operation+=OneShotOperation | operation+=FirstChainOperation (':' operation+=ChainOperation)* ;
+	Assignment? (oneShotOperation=OneShotOperation | operation+=ChainOperation (':' operation+=ChainOperation)*) ;
+
+// =================================
+// ======== Chain(able) operations =
+// =================================
+
+ChainOperation:
+	CmdWithDf |	CmdWithRowCond | CmdWithColList | CmdNoParameter | CmdWithParameter | CmdWithOperationChain | CmdJoin | NewSchema
 ;
 
-Notification :
-	'notification' name=ID '(' (params+=Property (',' params+=Property)*)? ')'
+// --------------
+// Cmd which has as parameter a (single) dataframe, e.g. "on df", " ... union df2"
+CmdWithDf:
+	concreteCmd=Enum_CmdWithDF dataframe=ID
+;
+enum Enum_CmdWithDF:
+	on | union
 ;
 
-TypeDefinition :
-	'type' name=ID ('extends' inheritedStructs+=[TypeDefinition] (',' inheritedStructs+=[TypeDefinition])*)? '{'
-		(property+=Property)*
-	'}';
-	
-Property :
-	name=ID (optional?='?')? ':' type=Type
+// --------------
+// Cmd followed by row selection condition, like $col1 > 5 and $col2 in [1,2,3]
+CmdWithRowCond:
+	concreteCmd=Enum_CmdWithRowCond rowCondition=RowCondition
 ;
-	
-Type : 
-	{Primitive} name=Primitive | 
-	TypeReference
+enum Enum_CmdWithRowCond:
+	select_rows | drop_rows
 ;
 
-Primitive :
-	'number' | 'string' | 'boolean' 
+// TODO: we need expressions here, so best is to import Xbase? Or use some other expression language for Python
+// One idea would be to define
+RowCondition:
+	col=STRING boolOp=BooleanComparator toCompare=INT
 ;
 
-TypeReference :
-	{TypeReference} typeDefinition=[TypeDefinition]
+BooleanComparator:
+	'>' | '<' | '==' | '!='
+;
+
+// --------------
+// Cmd followed by a column list, like select_cols $col1, $col2
+CmdWithColList:
+	concreteCmd=Enum_CmdWithColList colList = ColumnList
+;
+enum Enum_CmdWithColList:
+	select_cols | drop_cols
+;
+
+// --------------
+// Cmd without any parameters
+CmdNoParameter:
+	concreteCmd = Enum_CmdNoParameter
+;
+enum Enum_CmdNoParameter:
+	distinct | show | show_column_names | show_schema | describe | count
+;
+
+// --------------
+// Cmd followed by a single parameter
+CmdWithParameter:
+	concreteCmd=Enum_CmdWithParameter parameter=INT
+;
+enum Enum_CmdWithParameter:
+	show_top_N
+;
+
+
+// --------------
+// Cmd followed by a list of columns and optional chain of aggregation operations
+// essentially, only sth like: "group_by $col1, $col2 apply min apply
+CmdWithOperationChain:
+	concreteCmd=Enum_CmdWithOperationChain colList = ColumnList ('apply' aggregationOp+=AggregationOperation)*
+;
+enum Enum_CmdWithOperationChain:
+	group_by
+;
+// todo: complete the list of aggregation ops
+enum AggregationOperation:
+	min | max | unique | sum | times | median | mean
+;
+
+// --------------
+// Cmd "join", very specific
+CmdJoin:
+	'join' 'with' dataframe=ID 'on' columnList=ColumnList ('joinType' joinType=JoinTypes)?
+;
+enum JoinTypes:
+	left|right|inner|outer
+;
+
+
+// =================================
+// ======== Subexpressions =========
+// =================================
+
+Assignment:
+	{Assignment} 'let' name=ID '='
+;
+
+FullDfSelector:
+	'on' name=ID
+;
+
+ColumnList:
+	 'cols' columnName+=ID (',' columnName+=ID)*
+;
+
+
+TypedColumnNames:
+	typedcolumns+=TypedColumn (',' typedcolumns+=TypedColumn)*
+;
+
+TypedColumn:
+	columnName=ID 'of' type=ColumnType
+;
+
+enum Filetype:
+	json|parquet|csv
+;
+
+// todo: check the available types and complete
+enum ColumnType:
+	int|str|float|double
+;
+
+// =================================
+// ====== One shot operations ======
+// =================================
+
+OneShotOperation:
+	NewSession | StopSession | LoadData | SaveData
+;
+
+NewSession:
+	{NewSession} 'start_session' ('named' applicationName=STRING )?
+;
+
+StopSession:
+	{StopSession} 'stop_session'
+;
+
+LoadData:
+	'load' ('as' fileType=Filetype)? pathname=ID 'with schema' schema=ID
+;
+
+SaveData:
+	'save' ('as' fileType=Filetype)?  (columnList=ColumnList)? 'to' pathname=STRING
+;
+
+NewSchema:
+	'schema' identifierList = TypedColumnNames
 ;

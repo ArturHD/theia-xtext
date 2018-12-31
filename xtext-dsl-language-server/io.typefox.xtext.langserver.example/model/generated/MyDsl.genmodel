@@ -6,38 +6,134 @@
     complianceLevel="6.0" copyrightFields="false" runtimeVersion="2.14">
   <genPackages prefix="MyDsl" basePackage="io.typefox.xtext.langserver.example" disposableProviderFactory="true"
       fileExtensions="dsl" ecorePackage="MyDsl.ecore#/">
-    <genClasses ecoreClass="MyDsl.ecore#//ProtocolDefinitions">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//ProtocolDefinitions/definitions"/>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="MyDsl.ecore#//Enum_CmdWithDF">
+      <genEnumLiterals ecoreEnumLiteral="MyDsl.ecore#//Enum_CmdWithDF/on"/>
+      <genEnumLiterals ecoreEnumLiteral="MyDsl.ecore#//Enum_CmdWithDF/union"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="MyDsl.ecore#//Enum_CmdWithRowCond">
+      <genEnumLiterals ecoreEnumLiteral="MyDsl.ecore#//Enum_CmdWithRowCond/select_rows"/>
+      <genEnumLiterals ecoreEnumLiteral="MyDsl.ecore#//Enum_CmdWithRowCond/drop_rows"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="MyDsl.ecore#//Enum_CmdWithColList">
+      <genEnumLiterals ecoreEnumLiteral="MyDsl.ecore#//Enum_CmdWithColList/select_cols"/>
+      <genEnumLiterals ecoreEnumLiteral="MyDsl.ecore#//Enum_CmdWithColList/drop_cols"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="MyDsl.ecore#//Enum_CmdNoParameter">
+      <genEnumLiterals ecoreEnumLiteral="MyDsl.ecore#//Enum_CmdNoParameter/distinct"/>
+      <genEnumLiterals ecoreEnumLiteral="MyDsl.ecore#//Enum_CmdNoParameter/show"/>
+      <genEnumLiterals ecoreEnumLiteral="MyDsl.ecore#//Enum_CmdNoParameter/show_column_names"/>
+      <genEnumLiterals ecoreEnumLiteral="MyDsl.ecore#//Enum_CmdNoParameter/show_schema"/>
+      <genEnumLiterals ecoreEnumLiteral="MyDsl.ecore#//Enum_CmdNoParameter/describe"/>
+      <genEnumLiterals ecoreEnumLiteral="MyDsl.ecore#//Enum_CmdNoParameter/count"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="MyDsl.ecore#//Enum_CmdWithParameter">
+      <genEnumLiterals ecoreEnumLiteral="MyDsl.ecore#//Enum_CmdWithParameter/show_top_N"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="MyDsl.ecore#//Enum_CmdWithOperationChain">
+      <genEnumLiterals ecoreEnumLiteral="MyDsl.ecore#//Enum_CmdWithOperationChain/group_by"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="MyDsl.ecore#//AggregationOperation">
+      <genEnumLiterals ecoreEnumLiteral="MyDsl.ecore#//AggregationOperation/min"/>
+      <genEnumLiterals ecoreEnumLiteral="MyDsl.ecore#//AggregationOperation/max"/>
+      <genEnumLiterals ecoreEnumLiteral="MyDsl.ecore#//AggregationOperation/unique"/>
+      <genEnumLiterals ecoreEnumLiteral="MyDsl.ecore#//AggregationOperation/sum"/>
+      <genEnumLiterals ecoreEnumLiteral="MyDsl.ecore#//AggregationOperation/times"/>
+      <genEnumLiterals ecoreEnumLiteral="MyDsl.ecore#//AggregationOperation/median"/>
+      <genEnumLiterals ecoreEnumLiteral="MyDsl.ecore#//AggregationOperation/mean"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="MyDsl.ecore#//JoinTypes">
+      <genEnumLiterals ecoreEnumLiteral="MyDsl.ecore#//JoinTypes/left"/>
+      <genEnumLiterals ecoreEnumLiteral="MyDsl.ecore#//JoinTypes/right"/>
+      <genEnumLiterals ecoreEnumLiteral="MyDsl.ecore#//JoinTypes/inner"/>
+      <genEnumLiterals ecoreEnumLiteral="MyDsl.ecore#//JoinTypes/outer"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="MyDsl.ecore#//Filetype">
+      <genEnumLiterals ecoreEnumLiteral="MyDsl.ecore#//Filetype/json"/>
+      <genEnumLiterals ecoreEnumLiteral="MyDsl.ecore#//Filetype/parquet"/>
+      <genEnumLiterals ecoreEnumLiteral="MyDsl.ecore#//Filetype/csv"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="MyDsl.ecore#//ColumnType">
+      <genEnumLiterals ecoreEnumLiteral="MyDsl.ecore#//ColumnType/int"/>
+      <genEnumLiterals ecoreEnumLiteral="MyDsl.ecore#//ColumnType/str"/>
+      <genEnumLiterals ecoreEnumLiteral="MyDsl.ecore#//ColumnType/float"/>
+      <genEnumLiterals ecoreEnumLiteral="MyDsl.ecore#//ColumnType/double"/>
+    </genEnums>
+    <genClasses ecoreClass="MyDsl.ecore#//Model"/>
+    <genClasses ecoreClass="MyDsl.ecore#//Operations">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//Operations/operations"/>
     </genClasses>
-    <genClasses ecoreClass="MyDsl.ecore#//Definitions">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//Definitions/name"/>
+    <genClasses ecoreClass="MyDsl.ecore#//LineOperation">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//LineOperation/oneShotOperation"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//LineOperation/operation"/>
     </genClasses>
-    <genClasses ecoreClass="MyDsl.ecore#//ProtocolDefinition">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//ProtocolDefinition/methods"/>
+    <genClasses ecoreClass="MyDsl.ecore#//ChainOperation"/>
+    <genClasses ecoreClass="MyDsl.ecore#//CmdWithDf">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//CmdWithDf/concreteCmd"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//CmdWithDf/dataframe"/>
     </genClasses>
-    <genClasses ecoreClass="MyDsl.ecore#//Method">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//Method/name"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//Method/params"/>
+    <genClasses ecoreClass="MyDsl.ecore#//CmdWithRowCond">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//CmdWithRowCond/concreteCmd"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//CmdWithRowCond/rowCondition"/>
     </genClasses>
-    <genClasses ecoreClass="MyDsl.ecore#//Request">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//Request/returnType"/>
+    <genClasses ecoreClass="MyDsl.ecore#//RowCondition">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//RowCondition/col"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//RowCondition/boolOp"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//RowCondition/toCompare"/>
     </genClasses>
-    <genClasses ecoreClass="MyDsl.ecore#//Notification"/>
-    <genClasses ecoreClass="MyDsl.ecore#//TypeDefinition">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference MyDsl.ecore#//TypeDefinition/inheritedStructs"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//TypeDefinition/property"/>
+    <genClasses ecoreClass="MyDsl.ecore#//CmdWithColList">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//CmdWithColList/concreteCmd"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//CmdWithColList/colList"/>
     </genClasses>
-    <genClasses ecoreClass="MyDsl.ecore#//Property">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//Property/name"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//Property/optional"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//Property/type"/>
+    <genClasses ecoreClass="MyDsl.ecore#//CmdNoParameter">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//CmdNoParameter/concreteCmd"/>
     </genClasses>
-    <genClasses ecoreClass="MyDsl.ecore#//Type"/>
-    <genClasses ecoreClass="MyDsl.ecore#//TypeReference">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference MyDsl.ecore#//TypeReference/typeDefinition"/>
+    <genClasses ecoreClass="MyDsl.ecore#//CmdWithParameter">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//CmdWithParameter/concreteCmd"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//CmdWithParameter/parameter"/>
     </genClasses>
-    <genClasses ecoreClass="MyDsl.ecore#//Primitive">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//Primitive/name"/>
+    <genClasses ecoreClass="MyDsl.ecore#//CmdWithOperationChain">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//CmdWithOperationChain/concreteCmd"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//CmdWithOperationChain/colList"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//CmdWithOperationChain/aggregationOp"/>
+    </genClasses>
+    <genClasses ecoreClass="MyDsl.ecore#//CmdJoin">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//CmdJoin/dataframe"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//CmdJoin/columnList"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//CmdJoin/joinType"/>
+    </genClasses>
+    <genClasses ecoreClass="MyDsl.ecore#//Assignment">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//Assignment/name"/>
+    </genClasses>
+    <genClasses ecoreClass="MyDsl.ecore#//FullDfSelector">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//FullDfSelector/name"/>
+    </genClasses>
+    <genClasses ecoreClass="MyDsl.ecore#//ColumnList">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//ColumnList/columnName"/>
+    </genClasses>
+    <genClasses ecoreClass="MyDsl.ecore#//TypedColumnNames">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//TypedColumnNames/typedcolumns"/>
+    </genClasses>
+    <genClasses ecoreClass="MyDsl.ecore#//TypedColumn">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//TypedColumn/columnName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//TypedColumn/type"/>
+    </genClasses>
+    <genClasses ecoreClass="MyDsl.ecore#//OneShotOperation"/>
+    <genClasses ecoreClass="MyDsl.ecore#//NewSession">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//NewSession/applicationName"/>
+    </genClasses>
+    <genClasses ecoreClass="MyDsl.ecore#//StopSession"/>
+    <genClasses ecoreClass="MyDsl.ecore#//LoadData">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//LoadData/fileType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//LoadData/pathname"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//LoadData/schema"/>
+    </genClasses>
+    <genClasses ecoreClass="MyDsl.ecore#//SaveData">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//SaveData/fileType"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//SaveData/columnList"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//SaveData/pathname"/>
+    </genClasses>
+    <genClasses ecoreClass="MyDsl.ecore#//NewSchema">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//NewSchema/identifierList"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>
