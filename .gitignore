@@ -10,3 +10,5 @@ webpack.config.js
 .gradle
 .idea
 .metadata
+_Docs/
+yarn-error.log
