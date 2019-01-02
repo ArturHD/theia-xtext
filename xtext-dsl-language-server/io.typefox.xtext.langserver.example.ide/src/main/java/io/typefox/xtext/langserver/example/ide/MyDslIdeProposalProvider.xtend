@@ -1,9 +1,7 @@
 package io.typefox.xtext.langserver.example.ide
 
-import io.typefox.xtext.langserver.example.services.MyDslGrammarAccess
 
 import java.util.Collection
-import javax.inject.Inject
 import org.eclipse.xtext.ide.editor.contentassist.ContentAssistContext
 import org.eclipse.xtext.ide.editor.contentassist.IIdeContentProposalAcceptor
 import org.eclipse.xtext.ide.editor.contentassist.IdeContentProposalProvider
@@ -48,41 +46,38 @@ class MyDslIdeProposalProvider extends IdeContentProposalProvider {
 		}
 
 	}
-
-
 	
 }
 
 
-    /* Commented-out, example from a user (not resolved post) 
-        // From post: https://www.eclipse.org/forums/index.php/t/1081951/
-        @Inject
-        MyDslGrammarAccess ga
-        
-        override createProposals(Collection<ContentAssistContext> contexts, IIdeContentProposalAcceptor acceptor) {
-            super.createProposals(contexts, acceptor)
-            for (context : contexts) {
-                for (ge : context.firstSetGrammarElements) {
-                    if (ga.barAccess.textAssignment_1 == ge) {
-                        for (element : #["FooBar", "Test", "Example"].filter[startsWith(context.prefix)]) {
-                            val entry = proposalCreator.createProposal(element, context)
-                            val prio = proposalPriorities.getDefaultPriority(entry)
-                            acceptor.accept(entry, prio)
-                        }
+/* Commented-out, example from a user (not resolved post)     
+// From post: https://www.eclipse.org/forums/index.php/t/1081951/
+// p.s. and yes you could override (or one of the other _createProposals methods as well):
+// * org.eclipse.xtext.ide.editor.contentassist.IdeContentProposalProvider.createProposals(AbstractElement, ContentAssistContext, IIdeContentProposalAcceptor)
+// * _createProposals(Assignment assignment, ContentAssistContext context, IIdeContentProposalAcceptor acceptor) 
+// * org.eclipse.xtext.ide.editor.contentassist.IdeContentProposalProvider._createProposals(RuleCall, ContentAssistContext, IIdeContentProposalAcceptor)
+
+import io.typefox.xtext.langserver.example.services.MyDslGrammarAccess
+import javax.inject.Inject
+
+class MyDslIdeProposalProvider extends IdeContentProposalProvider {
+
+    @Inject
+    MyDslGrammarAccess ga
+    
+    override createProposals(Collection<ContentAssistContext> contexts, IIdeContentProposalAcceptor acceptor) {
+        super.createProposals(contexts, acceptor)
+        for (context : contexts) {
+            for (ge : context.firstSetGrammarElements) {
+                if (ga.barAccess.textAssignment_1 == ge) {
+                    for (element : #["FooBar", "Test", "Example"].filter[startsWith(context.prefix)]) {
+                        val entry = proposalCreator.createProposal(element, context)
+                        val prio = proposalPriorities.getDefaultPriority(entry)
+                        acceptor.accept(entry, prio)
                     }
                 }
             }
         }
-
-        /*
-        From post: https://www.eclipse.org/forums/index.php/t/1081951/
-        p.s. and yes you could override 
-        org.eclipse.xtext.ide.editor.contentassist.IdeContentProposalProvider.createProposals(AbstractElement, ContentAssistContext, IIdeContentProposalAcceptor)
-        or
-        _createProposals(Assignment assignment, ContentAssistContext context, IIdeContentProposalAcceptor acceptor) 
-        or
-        org.eclipse.xtext.ide.editor.contentassist.IdeContentProposalProvider._createProposals(RuleCall, ContentAssistContext, IIdeContentProposalAcceptor)
-        or one of the other _createProposals methods
-        as well  
-        */
-    */
+    }
+}
+*/
