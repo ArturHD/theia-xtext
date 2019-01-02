@@ -37,10 +37,24 @@ class MyDslIdeProposalProvider extends IdeContentProposalProvider {
     override createProposals(Collection<ContentAssistContext> contexts, IIdeContentProposalAcceptor acceptor) {
 		println("start here")
 		super.createProposals(contexts, acceptor)
+        for (context : contexts) {
+			for (element : context.firstSetGrammarElements) {
+				if (!acceptor.canAcceptMoreProposals) {
+					return
+				}
+				// createProposals(element, context, acceptor)
+                println("Element type: " + element)
+			}
+		}
+
 	}
 
 
-    /* Commented-out 
+	
+}
+
+
+    /* Commented-out, example from a user (not resolved post) 
         // From post: https://www.eclipse.org/forums/index.php/t/1081951/
         @Inject
         MyDslGrammarAccess ga
@@ -59,6 +73,16 @@ class MyDslIdeProposalProvider extends IdeContentProposalProvider {
                 }
             }
         }
+
+        /*
+        From post: https://www.eclipse.org/forums/index.php/t/1081951/
+        p.s. and yes you could override 
+        org.eclipse.xtext.ide.editor.contentassist.IdeContentProposalProvider.createProposals(AbstractElement, ContentAssistContext, IIdeContentProposalAcceptor)
+        or
+        _createProposals(Assignment assignment, ContentAssistContext context, IIdeContentProposalAcceptor acceptor) 
+        or
+        org.eclipse.xtext.ide.editor.contentassist.IdeContentProposalProvider._createProposals(RuleCall, ContentAssistContext, IIdeContentProposalAcceptor)
+        or one of the other _createProposals methods
+        as well  
+        */
     */
-	
-}
