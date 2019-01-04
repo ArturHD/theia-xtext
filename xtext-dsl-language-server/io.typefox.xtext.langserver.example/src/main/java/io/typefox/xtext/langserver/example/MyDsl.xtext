@@ -7,14 +7,21 @@ Model:
 ;
 
 Operations:
-	{Operations} (operations+=LineOperation)*
+	{Operations} (operations+=LineOperation | arbitraryStr += ArbitraryString)*
 ;
 
+ArbitraryString:
+	lineContent=STRING
+;
 
 LineOperation:
 //	operation+=OneShotOperation | operation+=FirstChainOperation (':' operation+=ChainOperation)* ;
-	Assignment? (oneShotOperation=OneShotOperation | operation+=ChainOperation (':' operation+=ChainOperation)*) ;
+	'##' Assignment? (oneShotOperation=OneShotOperation | operation+=ChainOperation (':' operation+=ChainOperation)*)  NEWLINE*;
 
+
+terminal NEWLINE:
+	('\r'? '\n');
+	
 // =================================
 // ======== Chain(able) operations =
 // =================================

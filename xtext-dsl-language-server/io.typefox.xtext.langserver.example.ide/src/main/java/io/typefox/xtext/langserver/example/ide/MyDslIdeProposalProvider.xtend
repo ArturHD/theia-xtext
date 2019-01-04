@@ -13,6 +13,9 @@ import org.eclipse.xtext.ide.editor.contentassist.IdeContentProposalCreator
 import com.google.inject.Inject
 import org.eclipse.xtext.util.TextRegion
 
+import io.typefox.xtext.langserver.example.generator.MyDslGenerator
+
+
 /* Some documentation from: https://www.eclipse.org/Xtext/documentation/330_web_support.html
 
     Content Assist
@@ -36,37 +39,6 @@ import org.eclipse.xtext.util.TextRegion
 
 */
 
-/* Commented-out, example from a user (not resolved post)     
-// From post: https://www.eclipse.org/forums/index.php/t/1081951/
-// p.s. and yes you could override (or one of the other _createProposals methods as well):
-// * org.eclipse.xtext.ide.editor.contentassist.IdeContentProposalProvider.createProposals(AbstractElement, ContentAssistContext, IIdeContentProposalAcceptor)
-// * _createProposals(Assignment assignment, ContentAssistContext context, IIdeContentProposalAcceptor acceptor) 
-// * org.eclipse.xtext.ide.editor.contentassist.IdeContentProposalProvider._createProposals(RuleCall, ContentAssistContext, IIdeContentProposalAcceptor)
-
-import io.typefox.xtext.langserver.example.services.MyDslGrammarAccess
-import javax.inject.Inject
-
-class MyDslIdeProposalProvider extends IdeContentProposalProvider {
-
-    @Inject
-    MyDslGrammarAccess ga
-    
-    override createProposals(Collection<ContentAssistContext> contexts, IIdeContentProposalAcceptor acceptor) {
-        super.createProposals(contexts, acceptor)
-        for (context : contexts) {
-            for (ge : context.firstSetGrammarElements) {
-                if (ga.barAccess.textAssignment_1 == ge) {
-                    for (element : #["FooBar", "Test", "Example"].filter[startsWith(context.prefix)]) {
-                        val entry = proposalCreator.createProposal(element, context)
-                        val prio = proposalPriorities.getDefaultPriority(entry)
-                        acceptor.accept(entry, prio)
-                    }
-                }
-            }
-        }
-    }
-}
-*/
 
 
 class MyDslIdeProposalProvider extends IdeContentProposalProvider {
@@ -96,11 +68,11 @@ class MyDslIdeProposalProvider extends IdeContentProposalProvider {
 		// 
         for (context : contexts) {
         	// Add a new content proposal
-			val proposal = '"' + '<my cool proposal>' + '"'
+			val proposal = '\n' + MyDslGenerator.currentContent + '\n'
 			val entry = proposalCreator.createProposal(proposal, context) [
 				editPositions += new TextRegion(context.offset + 1, proposal.length - 2)
 				kind = ContentAssistEntry.KIND_TEXT
-				description = "<Python suggestion>"
+				description = "<Python fragment>"
 			]
 			// Set high priority to be shown as 1st
 			acceptor.accept(entry, proposalPriorities.getDefaultPriority(entry) + 1000)

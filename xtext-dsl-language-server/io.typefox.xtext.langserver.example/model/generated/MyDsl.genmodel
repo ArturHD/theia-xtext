@@ -61,6 +61,10 @@
     <genClasses ecoreClass="MyDsl.ecore#//Model"/>
     <genClasses ecoreClass="MyDsl.ecore#//Operations">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//Operations/operations"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//Operations/arbitraryStr"/>
+    </genClasses>
+    <genClasses ecoreClass="MyDsl.ecore#//ArbitraryString">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//ArbitraryString/lineContent"/>
     </genClasses>
     <genClasses ecoreClass="MyDsl.ecore#//LineOperation">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//LineOperation/oneShotOperation"/>
