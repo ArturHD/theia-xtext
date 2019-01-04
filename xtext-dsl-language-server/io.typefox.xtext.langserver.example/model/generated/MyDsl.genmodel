@@ -64,7 +64,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//Operations/arbitraryStr"/>
     </genClasses>
     <genClasses ecoreClass="MyDsl.ecore#//ArbitraryString">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//ArbitraryString/lineContent"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//ArbitraryString/anyCode"/>
     </genClasses>
     <genClasses ecoreClass="MyDsl.ecore#//LineOperation">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//LineOperation/oneShotOperation"/>

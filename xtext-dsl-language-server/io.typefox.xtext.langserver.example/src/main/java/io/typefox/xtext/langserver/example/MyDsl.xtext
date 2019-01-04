@@ -11,7 +11,7 @@ Operations:
 ;
 
 ArbitraryString:
-	lineContent=STRING
+	{ArbitraryString} anyCode+=(STRING|NEWLINE)
 ;
 
 LineOperation:

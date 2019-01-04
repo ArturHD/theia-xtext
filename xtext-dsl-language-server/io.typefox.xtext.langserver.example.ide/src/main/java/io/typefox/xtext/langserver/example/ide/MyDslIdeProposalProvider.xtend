@@ -71,7 +71,7 @@ class MyDslIdeProposalProvider extends IdeContentProposalProvider {
 			val proposal = '\n' + MyDslGenerator.currentContent + '\n'
 			val entry = proposalCreator.createProposal(proposal, context) [
 				editPositions += new TextRegion(context.offset + 1, proposal.length - 2)
-				kind = ContentAssistEntry.KIND_TEXT
+				kind = ContentAssistEntry.KIND_VALUE
 				description = "<Python fragment>"
 			]
 			// Set high priority to be shown as 1st
