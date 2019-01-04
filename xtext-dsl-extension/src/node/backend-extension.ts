@@ -25,6 +25,27 @@ function getPort(): number | undefined {
     }
 }
 
+/* Instructions for remove debugging (Artur Andrzejak, 4.01.2019):
+Setup:
+    10. Include the options for allowing remote debugging in JVM (lines A10, A20) in file 
+        ...\DSL-workspace\DSL-eclipse-theia\xtext-dsl-extension\src\node\backend-extension.ts
+    20. Rebuild the js/theia with "yarn" in the main project directory
+    30. Start eclipse, and configure Run-> Debug Configuration -> Remote Java Application as follows (if not already there):
+     - Config name: "LangServer with Theia (target is client)" (or similar)
+     - Project: "io.typefox.xtext.langserver.example.ide"
+     - Connection type: "Standard (Socket ***Listen***)" (Important: choose "... listen"
+     - Port 8123 (same as in Line A20)
+     - On Tab "Common", check (enable) for "Debug" on "Display on Favorites Menu" (then can start debug from toolbar)
+
+Start:
+    40. Start Eclipse debugger (via toolbar, right-click, "LangServer with Theia (target is client)"
+     - In the debug perspective, you should see sth like "Waiting for vm to connect at port 8123..."
+    50. Start theia application (e.g. via "start_theia.bat")
+    60. Open browser, load http://127.0.0.1:3000/
+    70. In a tab with "*.dsl" file, press ctrl+space => eclipse debugger should show the current breakpoint
+
+*/
+
 @injectable()
 class DSLContribution extends BaseLanguageServerContribution {
 
@@ -44,10 +65,20 @@ class DSLContribution extends BaseLanguageServerContribution {
             const jar = path.resolve(__dirname, '../../build/dsl-language-server.jar');
     
             const command = 'java';
+            
+            // Modified for remote debugging by Artur Andrzejak on 4-01-2019
             const args: string[] = [
+                '-Xdebug',      // Line A10
+                '-Xrunjdwp:transport=dt_socket,address=127.0.0.1:8123',   // WORKS: target is client (Line A20)
+                //  '-Xrunjdwp:transport=dt_socket,address=127.0.0.1:8123,suspend=y,server=y',   // target is server (not working)
                 '-jar',
                 jar
             ];
+            // Original version
+            // const args: string[] = [
+            //    '-jar',
+            //    jar
+            //];
             const serverConnection = this.createProcessStreamConnection(command, args);
             this.forward(clientConnection, serverConnection);
         }

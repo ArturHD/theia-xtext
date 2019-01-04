@@ -17,7 +17,7 @@ export class DslClientContribution extends BaseLanguageClientContribution {
 
     protected get globPatterns() {
         return [
-            '**/*.dsl'
+            '**/*.dsl', '**/*.py'
         ];
     }
 }
@@ -30,8 +30,8 @@ export function registerDSL() {
     monaco.languages.register({
         id: 'dsl',
         aliases: ['DSL', 'dsl'],
-        extensions: ['.dsl'],
-        mimetypes: ['text/dsl']
+        extensions: ['.dsl', '.py'],
+        mimetypes: ['text/dsl', 'text/py']
     })
     monaco.languages.setLanguageConfiguration('dsl', {
         comments: {

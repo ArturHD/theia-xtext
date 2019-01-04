@@ -13,3 +13,6 @@ webpack.config.js
 _Docs/
 yarn-error.log
 Build commands.txt
+gradle/
+gradlew.bat
+gradlew
