@@ -5,7 +5,7 @@
     updateClasspath="false" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
     complianceLevel="6.0" copyrightFields="false" runtimeVersion="2.14">
   <genPackages prefix="MyDsl" basePackage="io.typefox.xtext.langserver.example" disposableProviderFactory="true"
-      fileExtensions="dsl" ecorePackage="MyDsl.ecore#/">
+      fileExtensions="py,dsl" ecorePackage="MyDsl.ecore#/">
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="MyDsl.ecore#//Enum_CmdWithDF">
       <genEnumLiterals ecoreEnumLiteral="MyDsl.ecore#//Enum_CmdWithDF/on"/>
       <genEnumLiterals ecoreEnumLiteral="MyDsl.ecore#//Enum_CmdWithDF/union"/>
@@ -61,14 +61,10 @@
     <genClasses ecoreClass="MyDsl.ecore#//Model"/>
     <genClasses ecoreClass="MyDsl.ecore#//Operations">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//Operations/operations"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//Operations/arbitraryStr"/>
-    </genClasses>
-    <genClasses ecoreClass="MyDsl.ecore#//ArbitraryString">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//ArbitraryString/anyCode"/>
     </genClasses>
     <genClasses ecoreClass="MyDsl.ecore#//LineOperation">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//LineOperation/oneShotOperation"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//LineOperation/operation"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//LineOperation/oneShotOperation"/>
     </genClasses>
     <genClasses ecoreClass="MyDsl.ecore#//ChainOperation"/>
     <genClasses ecoreClass="MyDsl.ecore#//CmdWithDf">

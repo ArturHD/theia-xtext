@@ -6,18 +6,12 @@
   <eClassifiers xsi:type="ecore:EClass" name="Operations" eSuperTypes="#//Model">
     <eStructuralFeatures xsi:type="ecore:EReference" name="operations" upperBound="-1"
         eType="#//LineOperation" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="arbitraryStr" upperBound="-1"
-        eType="#//ArbitraryString" containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ArbitraryString">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="anyCode" unique="false"
-        upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="LineOperation">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="operation" upperBound="-1"
+        eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="oneShotOperation" eType="#//OneShotOperation"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="operation" upperBound="-1"
-        eType="#//ChainOperation" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ChainOperation"/>
   <eClassifiers xsi:type="ecore:EClass" name="CmdWithDf" eSuperTypes="#//ChainOperation">
@@ -100,7 +94,7 @@
     <eLiterals name="inner" value="2" literal="inner"/>
     <eLiterals name="outer" value="3" literal="outer"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Assignment" eSuperTypes="#//LineOperation">
+  <eClassifiers xsi:type="ecore:EClass" name="Assignment">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FullDfSelector">

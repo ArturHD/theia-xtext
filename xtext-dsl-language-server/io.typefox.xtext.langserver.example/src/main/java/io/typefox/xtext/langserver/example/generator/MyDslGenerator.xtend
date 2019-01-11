@@ -24,8 +24,6 @@ import io.typefox.xtext.langserver.example.myDsl.Filetype
 import org.eclipse.emf.ecore.EObject
 import io.typefox.xtext.langserver.example.myDsl.ColumnType
 import io.typefox.xtext.langserver.example.myDsl.TypedColumn
-import org.eclipse.xtext.util.EmfFormatter
-import io.typefox.xtext.langserver.example.myDsl.Enum_CmdWithDF
 import io.typefox.xtext.langserver.example.myDsl.CmdNoParameter
 import io.typefox.xtext.langserver.example.myDsl.RowCondition
 

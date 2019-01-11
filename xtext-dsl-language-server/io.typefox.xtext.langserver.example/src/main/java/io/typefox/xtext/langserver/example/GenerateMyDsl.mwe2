@@ -28,7 +28,7 @@ Workflow {
 		}
 		language = StandardLanguage {
 			name = "io.typefox.xtext.langserver.example.MyDsl"
-			fileExtensions = "dsl"
+			fileExtensions = "py,dsl"
 
 			serializer = {
 				generateStub = false

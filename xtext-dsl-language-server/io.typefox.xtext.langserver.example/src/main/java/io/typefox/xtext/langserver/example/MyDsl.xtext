@@ -6,22 +6,44 @@ Model:
 	Operations
 ;
 
+
+
+/*
+terminal ARBITRARY_TEXT_UNTIL_EOL:
+//	'_' !('\n'|'\r')* ('\r'? '\n')?
+// The following works and accepts anything after '_' until EOF
+//	'_' !('\n'|'\r')* NEWLINE
+//	NEWLINE ' ' !('\n'|'\r')*
+//	!(DSL_START)? -> NEWLINE
+// SL comment from https://stackoverflow.com/questions/13992686/matching-a-text-in-line-by-line-file-with-xtext
+//	'|' !('\n' | '\r')*
+;
+*/
+
 Operations:
-	{Operations} (operations+=LineOperation | arbitraryStr += ArbitraryString)*
+//	{Operations} (operations+=LineOperation | ARBITRARY_LINE)*
+	{Operations} (operations+=LineOperation)*
 ;
 
-ArbitraryString:
-	{ArbitraryString} anyCode+=(STRING|NEWLINE)
-;
 
+ 
+
+// DSL operation Starts with 0+ whitespaces followed by char sequence DSL_START
 LineOperation:
-//	operation+=OneShotOperation | operation+=FirstChainOperation (':' operation+=ChainOperation)* ;
-	'##' Assignment? (oneShotOperation=OneShotOperation | operation+=ChainOperation (':' operation+=ChainOperation)*)  NEWLINE*;
+	'##' operation+= Assignment? (oneShotOperation=OneShotOperation | operation+=ChainOperation (':' operation+=ChainOperation)*);
+	//	operation+=OneShotOperation | operation+=FirstChainOperation (':' operation+=ChainOperation)* ;
 
+/* 
 
-terminal NEWLINE:
-	('\r'? '\n');
-	
+terminal ARBITRARY_LINE:
+	'!!' !('\n' | '\r')*
+;
+
+terminal DSL_START:
+	'##'
+;
+*/
+
 // =================================
 // ======== Chain(able) operations =
 // =================================
@@ -161,7 +183,7 @@ StopSession:
 ;
 
 LoadData:
-	'load' ('as' fileType=Filetype)? pathname=ID 'with schema' schema=ID
+	'load' ('as' fileType=Filetype)? pathname=ID 'with_schema' schema=ID
 ;
 
 SaveData:

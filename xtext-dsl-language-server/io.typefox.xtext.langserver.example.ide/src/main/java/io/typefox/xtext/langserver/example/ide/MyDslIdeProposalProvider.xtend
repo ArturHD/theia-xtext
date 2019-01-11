@@ -68,9 +68,9 @@ class MyDslIdeProposalProvider extends IdeContentProposalProvider {
 		// 
         for (context : contexts) {
         	// Add a new content proposal
-			val proposal = '\n' + MyDslGenerator.currentContent + '\n'
+			val proposal = '\n' + MyDslGenerator.currentContent
 			val entry = proposalCreator.createProposal(proposal, context) [
-				editPositions += new TextRegion(context.offset + 1, proposal.length - 2)
+				editPositions += new TextRegion(context.offset + 1, proposal.length)
 				kind = ContentAssistEntry.KIND_VALUE
 				description = "<Python fragment>"
 			]
