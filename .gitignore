@@ -17,3 +17,10 @@ gradlew.bat
 gradlew
 dictionary-Artur.txt
 lerna-debug.log
+*.tokens
+xtext-dsl-language-server/io.typefox.xtext.langserver.example/out/
+xtext-dsl-language-server/io.typefox.xtext.langserver.example/bin/
+*.class
+pvs-cs-pydsl/pvs.cs.pydsl/bin/
+pvs-cs-pydsl/pvs.cs.pydsl.ide/bin/
+xtext-dsl-language-server/io.typefox.xtext.langserver.example.ide/bin/

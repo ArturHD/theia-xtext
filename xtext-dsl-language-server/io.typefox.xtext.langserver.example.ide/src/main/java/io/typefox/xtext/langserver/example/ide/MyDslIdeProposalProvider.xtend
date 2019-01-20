@@ -46,6 +46,12 @@ class MyDslIdeProposalProvider extends IdeContentProposalProvider {
 	@Accessors(PROTECTED_GETTER)
 	@Inject IdeContentProposalCreator proposalCreator
 
+	val dslKeywordDocs = newHashMap(
+		'__example__' -> #['<description>', '<documentation>' ], 
+		'count' -> #['Counts number of rows', '<Action> Counts numbers of rows in a dataframe. Syntax: <dataframe> : count' ], 
+		'schema' -> #['Declares a dataframe schema', '<Statement> Declares a new dataframe schema from pairs <column-name>, <column-type>.\nSyntax: [new_var =] schema (<col_name> of <col_type>)*' ], 
+		'select_cols' -> #['Selects specific columns', '[Transform] Selects a specific columns of a dataframe, creating a new dataframe.\nSyntax: <dataframe> : select_cols col (<col_name>,)+' ] 		
+		) 
 
     override createProposals(Collection<ContentAssistContext> contexts, IIdeContentProposalAcceptor acceptor) {
 		// Get standard proposals
@@ -56,10 +62,17 @@ class MyDslIdeProposalProvider extends IdeContentProposalProvider {
 		// xtext-core/org.eclipse.xtext.ide/src/org/eclipse/xtext/ide/server/contentassist/ContentAssistService.xtend
 		
 		val myAcceptor = acceptor as IdeContentProposalAcceptor
+
 		// Add own data to each suggestion entry
 		for (ContentAssistEntry entry  : myAcceptor.getEntries() ) {
-            entry.description = "(Arturs description)"
-            entry.documentation = "(Arturs doc)"		
+			if (entry.kind == ContentAssistEntry.KIND_KEYWORD) {
+				val proposal = entry.proposal
+				if (dslKeywordDocs.containsKey(proposal)) {
+					val docPair = dslKeywordDocs.get(proposal)
+		            entry.description = docPair.get(0)
+		            entry.documentation = docPair.get(1)
+				}
+			} 
 		}
 		
 		// AA: my additional content proposal
@@ -72,7 +85,7 @@ class MyDslIdeProposalProvider extends IdeContentProposalProvider {
 			val entry = proposalCreator.createProposal(proposal, context) [
 				editPositions += new TextRegion(context.offset + 1, proposal.length)
 				kind = ContentAssistEntry.KIND_VALUE
-				description = "<Python fragment>"
+				description = "<Python code>"
 			]
 			// Set high priority to be shown as 1st
 			acceptor.accept(entry, proposalPriorities.getDefaultPriority(entry) + 1000)

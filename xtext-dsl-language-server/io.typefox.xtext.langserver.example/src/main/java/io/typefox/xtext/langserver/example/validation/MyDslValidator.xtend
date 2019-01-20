@@ -3,9 +3,9 @@
  */
 package io.typefox.xtext.langserver.example.validation
 
-import org.eclipse.xtext.validation.Check
+// import org.eclipse.xtext.validation.Check
 // import io.typefox.xtext.langserver.example.myDsl.ProtocolDefinition
-import io.typefox.xtext.langserver.example.myDsl.MyDslPackage
+// import io.typefox.xtext.langserver.example.myDsl.MyDslPackage
 
 /**
  * This class contains custom validation rules.
